@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
+    [SerializeField] float finishTime = 1.0f;
+    [SerializeField] ParticleSystem finishEffect;
+    [SerializeField] AudioClip audioclip;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +25,11 @@ public class FinishLine : MonoBehaviour
     {
         if(other.CompareTag("Finish"))
         {
+            finishEffect.Play();
+            GetComponent<AudioClip>().(audioclip);
             Debug.Log("End of the course");
-            LoadNextScene();
+            Invoke("LoadNextScene", finishTime);
+            
         }
     }
 

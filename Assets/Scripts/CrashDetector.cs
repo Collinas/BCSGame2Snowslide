@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CrashDetector : MonoBehaviour
 {
+    [SerializeField] float crashTime = 1.0f;
+    [SerializeField] ParticleSystem crashEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +23,14 @@ public class CrashDetector : MonoBehaviour
     {
        if(other.CompareTag("Ground"))
         {
+            crashEffect.Play();
             Debug.Log("Reset scene");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Invoke("ReloadScene", crashTime);
         }
+    }
+
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
